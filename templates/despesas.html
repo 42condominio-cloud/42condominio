@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despesas do Ano</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Segoe UI, Arial, sans-serif;
+            background: #f8f9fa;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            padding: 20px 30px;
+            box-sizing: border-box;
+            min-height: 100vh;
+        }
+        h2 {
+            text-align: center;
+            color: #2F5597;
+            margin: 0 0 25px 0;
+            flex-shrink: 0;
+            font-size: 1.5rem;
+        }
+        .table-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow-x: auto;
+            flex: 1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto;
+            font-size: 0.92rem;
+            background: white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        th, td {
+            padding: 7px 8px;
+            border-top: 1px solid #d0d0d0;
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        th:first-child, td:first-child {
+            text-align: left;
+            width: 14%;
+            min-width: 160px;
+            font-weight: 600;
+        }
+        th:nth-child(2), td:nth-child(2) {
+            width: 9%;
+            min-width: 80px;
+        }
+        th:not(:first-child):not(:nth-child(2)), td:not(:first-child):not(:nth-child(2)) {
+            width: 6.2%;
+            min-width: 60px;
+        }
+        th {
+            background: #2F5597;
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        .total {
+            font-weight: bold;
+            background: #E9EFF7;
+        }
+        .total td {
+            font-weight: bold;
+            background: #E9EFF7;
+        }
+        .negativo {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .nav {
+            margin-top: auto;
+            padding: 25px 0 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+        .nav a {
+            font-size: 1.05rem;
+            text-decoration: none;
+            color: #2F5597;
+            padding: 10px 28px;
+            border: 2px solid #2F5597;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.25s;
+            background: white;
+        }
+        .nav a:hover {
+            background: #2F5597;
+            color: white;
+        }
+        .arrow-left {
+            width: 0; height: 0;
+            border: 6px solid transparent;
+            border-right: 8px solid #2F5597;
+            margin-right: 10px;
+        }
+        .nav a:hover .arrow-left {
+            border-right-color: white;
+        }
+    </style>
+</head>
+<body>
+<h2>Despesas do Ano</h2>
+
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>DESPESAS</th>
+                <th>JAN</th><th>FEV</th><th>MAR</th><th>ABR</th><th>MAI</th>
+                <th>JUN</th><th>JUL</th><th>AGO</th><th>SET</th><th>OUT</th>
+                <th>NOV</th><th>DEZ</th>
+                <th>TOTAL</th>
+            </tr>
+
+            {% for linha in dados %}
+            <tr{% if linha.despesas and linha.despesas.upper() == 'TOTAIS' %} class="total"{% endif %}>
+                <td>{{ linha.despesas }}</td>
+                <td>{% if linha.jan %}{{ "%.2f"|format(linha.jan) }}{% endif %}</td>
+                <td>{% if linha.fev %}{{ "%.2f"|format(linha.fev) }}{% endif %}</td>
+                <td>{% if linha.mar %}{{ "%.2f"|format(linha.mar) }}{% endif %}</td>
+                <td>{% if linha.abr %}{{ "%.2f"|format(linha.abr) }}{% endif %}</td>
+                <td>{% if linha.mai %}{{ "%.2f"|format(linha.mai) }}{% endif %}</td>
+                <td>{% if linha.jun %}{{ "%.2f"|format(linha.jun) }}{% endif %}</td>
+                <td>{% if linha.jul %}{{ "%.2f"|format(linha.jul) }}{% endif %}</td>
+                <td>{% if linha.ago %}{{ "%.2f"|format(linha.ago) }}{% endif %}</td>
+                <td>{% if linha.set %}{{ "%.2f"|format(linha.set) }}{% endif %}</td>
+                <td>{% if linha.out %}{{ "%.2f"|format(linha.out) }}{% endif %}</td>
+                <td>{% if linha.nov %}{{ "%.2f"|format(linha.nov) }}{% endif %}</td>
+                <td>{% if linha.dez %}{{ "%.2f"|format(linha.dez) }}{% endif %}</td>
+                <td>{% if linha.total %}{{ "%.2f"|format(linha.total) }}{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="nav">
+        <a href="/"><span class="arrow-left"></span>Menu</a>
+    </div>
+</body>
+</html>
